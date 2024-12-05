@@ -9,7 +9,6 @@ from utils.result_diaplay import figure_visualization
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 path = os.getcwd()
 
-# 保存增强数据
 def load_data(data_dir):
     files = list(Path(data_dir).rglob("*.csv"))
     Freq = []
@@ -40,20 +39,15 @@ def load_label(label_dir):
         Label.append(label)
     return Label
 
-
-# 加载三个客户端的标签
 Label_c1 = load_label(path+'/data/raw_label_timewidow(10)/RW1_2_7_8/')
 Label_c2 = load_label(path+'/data/raw_label_timewidow(10)/RW3_4_5_6/')
 Label_c3 = load_label(path+'/data/raw_label_timewidow(10)/RW9_10_11_12/')
 
-
-# 加载每个客户端的增强数据以及原始数据
 Freq1, Crop1, Mask_freq1, Mask_crop1, Raw1 = load_data(path+'/data/raw_data_timewidow(10)/RW1_2_7_8/')
 Freq2, Crop2, Mask_freq2, Mask_crop2, Raw2 = load_data(path+'/data/raw_data_timewidow(10)/RW3_4_5_6/')
 Freq3, Crop3, Mask_freq3, Mask_crop3, Raw3 = load_data(path+'/data/raw_data_timewidow(10)/RW9_10_11_12/')
 
 
-# 将增强数据加载到一起
 dataset1 = CustomDataset(Freq1, Crop1, Mask_freq1, Mask_crop1)
 dataset2 = CustomDataset(Freq2, Crop2, Mask_freq2, Mask_crop2)
 dataset3 = CustomDataset(Freq3, Crop3, Mask_freq3, Mask_crop3)
